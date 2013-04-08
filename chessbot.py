@@ -11,10 +11,16 @@ import sys
 
 
 tests = False
+human = False
+computer = False
 
 try:
     if sys.argv[1] == '-t':
         tests = True
+    if sys.argv[1] == '-H':
+        human = True
+    if sys.argv[1] == '-c':
+        computer = True
 except IndexError:
     pass
 
@@ -22,7 +28,23 @@ except IndexError:
 if __name__ == "__main__":
     boardstate = state.State()
     if not tests:
-        boardstate.display()
+        if human:
+            print "Welcome to MiniChess"
+            print "May the odds be ever in your favor"
+            print ""
+            boardstate.display()
+            color = raw_input("Please pick your color (B/W)")
+            if color not in ["B","W"]:
+                raise NameError("Color must be either B or W")
+
+
+    if computer:
+
+        #boardstate.display()
+        while not boardstate.gameOver():
+            boardstate.move(boardstate.randomMove())
+            #boardstate.display()
+
 
 
     if tests:

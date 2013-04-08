@@ -4,6 +4,7 @@ import chessutil
 import string
 import move
 import square
+import random
 
 import math
 
@@ -14,7 +15,7 @@ class State():
         self.turn = "W"
 
     def display(self):
-        print "Pretty printing board"
+        #print "Pretty printing board"
         print ""
         print "  {0}  {1} ".format(self.rounds, self.turn)
         for index in xrange(25,-5,-5):
@@ -363,6 +364,28 @@ class State():
         self.setPieceAt(nexttargetx,nexttargety,piece)
         self.setPieceAt(targetx,targety,'.')
         self.toggleTurn()
+    
+    def piecesOfColor(self, color):
+        pieces = []
+        if color == "W":
+            alphabet = "RNBQKP"
+        else:
+            alphabet = "rnbqkp"
+        for index,piece in enumerate(self.board):
+            if piece in alphabet:
+                #(y * 5) + x = piece
+                pieces.append((piece, index % 5, index / 5))
+        return pieces
+
+
+    def randomMove(self):
+        moves = []
+        pieces = self.piecesOfColor(self.turn)
+        for tupple in pieces:
+            piece, x, y = tupple
+            moves += self.moveList(x,y)
+        return random.choice(moves)
+
 
 
     def humanMove(self,string_move):
