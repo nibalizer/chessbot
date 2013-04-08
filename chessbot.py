@@ -237,6 +237,41 @@ if __name__ == "__main__":
             boardstate.display()
             raise NameError("tests no pass: " + " ".join(map(str,moves)))
 
+        print ".",
+        #test movelist for bishop
+        #white bishop
+        moves = boardstate.moveList(2,1)
+        if " ".join(map(str,moves))  !=  "21-31 21-20 21-22 21-12 21-03":
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: " + " ".join(map(str,moves)))
+
+        print ".",
+        #test movelist for bishop
+        #black bishop
+        moves = boardstate.moveList(2,5)
+        if " ".join(map(str,moves))  !=  "25-15 25-34 25-43 25-14 25-03":
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: " + " ".join(map(str,moves)))
+
+        print ".",
+        #test movelist for rook
+        #white rook
+        moves = boardstate.moveList(0,2)
+        if " ".join(map(str,moves))  !=  "02-12 02-22 02-01 02-00 02-03 02-04":
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: " + " ".join(map(str,moves)))
+
+        print ".",
+        #test movelist for rook
+        #black rook
+        moves = boardstate.moveList(4,5)
+        if " ".join(map(str,moves))  !=  "45-44 45-43 45-42 45-41":
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: " + " ".join(map(str,moves)))
 
 
 

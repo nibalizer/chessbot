@@ -252,7 +252,30 @@ class State():
 
         elif p in "rRbB":
             #catch rooks and bishops
-            pass
+            #init
+            dx = 1
+            dy = 0
+            capture = False
+            stop_short = False
+            if p in "bB":
+                stop_short = True
+            if p in "rR":
+                capture = True
+            for i in range(0,4):
+                moves += self.moveScan(x,y,dx,dy,capture,stop_short)
+                dx, dy = dy, dx
+                dy *= -1
+            if p in "bB":
+                dx = 1
+                dy = 1
+                stop_short = False
+                capture = True
+                for i in range(0,4):
+                    moves += self.moveScan(x, y, dx, dy, capture, stop_short)
+                    dx, dy = dy, dx
+                    dy *= -1
+
+            return moves
         elif p in "nN":
             #catch kNights
             pass
