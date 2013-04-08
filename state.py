@@ -136,3 +136,100 @@ class State():
                 break
 
         return moves
+
+    def movelist(self,x,y):
+        """
+        To list the moves of a piece at x, y:
+        """
+
+        """
+        p ← piece at x, y
+        moves ← ∅
+        switch on type of p
+        queen, king:
+            for dx in -1 .. 1
+                for dy in -1 .. 1
+                    if dx = 0 and dy = 0
+                        continue
+            stop-short ← p = king
+            moves ← moves ∪ scan(x, y, dx, dy, stop-short)
+            return moves
+        rook, bishop:
+            dx ← 1
+            dy ← 0
+            stop-short ← p = bishop
+            capture ← p = rook
+            for i in 1 .. 4
+                moves ← moves ∪ scan(x, y, dx, dy, stop-short, capture)
+                exchange dx with dy
+                negate dy
+            if p = bishop
+                dx ← 1
+                dy ← 1
+                stop-short ← false
+                capture ← true
+                for i in 1 .. 4
+                    moves ← moves ∪ scan(x, y, dx, dy, stop-short, capture)
+                    exchange dx with dy
+                    negate dy
+            return moves
+        knight:
+            dx ← 1
+            dy ← 2
+            stop-short ← true
+            for i in 1 .. 4
+                moves ← moves ∪ scan(x, y, dx, dy, stop-short)
+                exchange dx with dy
+                negate dy
+            dx ← -1
+            dy ← 2
+            for i in 1 .. 4
+                moves ← moves ∪ scan(x, y, dx, dy, stop-short)
+                exchange dx with dy
+                negate dy
+            return moves
+        pawn:
+            dir ← 1
+            if p is black
+                dir ← -1
+            stop-short ← true
+            m ← scan(x, y, -1, dir, stop-short)
+            if |m| = 1 and m[0] is a capture
+                moves ← moves ∪ m
+            m ← scan(x, y, 1, dir, stop-short)
+            if |m| = 1 and m[0] is a capture
+                moves ← moves ∪ m
+            capture ← false
+            moves ← moves ∪ scan(x, y, 0, dir, stop-short, capture)
+            return moves
+
+        """
+
+        #init
+        p = self.pieceAt(x,y)
+        moves = []
+
+        #switch on type of p
+        #python doesn't have switch/case we just elif like a baws
+        
+        if p in "kKqQ":
+            #Catch kings queens
+            pass
+        elif p in "rRbB":
+            #catch rooks and bishops
+            pass
+        elif p in "nN":
+            #catch kNights
+            pass
+        elif p in "pP":
+            #catch pawns
+            pass
+
+        
+
+
+
+
+
+
+
