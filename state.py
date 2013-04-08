@@ -42,7 +42,29 @@ class State():
 
         return color
 
+    def newBoard(self,rows):
+        """
+        Create a new board from strings
+        """
 
+        board = []
+
+        """
+        #create the newboard with something like this
+        #NOTE THAT IT IS UPSIDE DOWN
+        rows.append("RNBQK")
+        rows.append("PPPPP")
+        rows.append(".....")
+        rows.append(".....")
+        rows.append("ppppp")
+        rows.append("kqbnr")
+        """
+        
+        for row in rows:
+            for letter in row:
+                board.append(letter)
+
+        self.board = board
 
     def boardinit(self):
         board = []
@@ -137,7 +159,7 @@ class State():
 
         return moves
 
-    def movelist(self,x,y):
+    def moveList(self,x,y):
         """
         To list the moves of a piece at x, y:
         """
@@ -214,7 +236,20 @@ class State():
         
         if p in "kKqQ":
             #Catch kings queens
-            pass
+            #init for king
+            stop_short = False
+            capture = True
+            for dx in range(-1,2):
+                for dy in range(-1,2):
+                    if dx == 0 and dy == 0:
+                        #case of no movement
+                        continue
+                    if p in "kK":
+                        #kings move 1 square only
+                        stop_short = True
+                    moves += self.moveScan(x,y,dx,dy,capture,stop_short)
+            return moves
+
         elif p in "rRbB":
             #catch rooks and bishops
             pass
