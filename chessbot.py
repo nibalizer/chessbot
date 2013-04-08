@@ -67,7 +67,9 @@ if __name__ == "__main__":
       if boardstate.inBoundsAt(4,5)   != True:
           raise Error("tests no pass")
       things = boardstate.moveScan(1,1,0,1)
-      if " ".join(map(str,things))  == "12-11 13-11 14-11":
+      if " ".join(map(str,things))  !=  "12-11 13-11 14-11":
+          #print " ".join(map(str,things))
+          raise Error("tests no pass")
       print ".",
       print ""
       print "All tests pass, woot!"
