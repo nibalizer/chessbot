@@ -5,6 +5,8 @@ import string
 import move
 import square
 
+import math
+
 class State():
     def __init__(self):
         self.board = self.boardinit()
@@ -39,6 +41,8 @@ class State():
             color = "B"
         else:
             color = "W"
+        if pieceletter == '.':
+            color = "E"
 
         return color
 
@@ -137,6 +141,7 @@ class State():
         while True:
             x += dx
             y += dy
+            capturepiece = False
 
             if not self.inBoundsAt(x,y):
                 #print "Error: out-of-bounds ({0},{1})".format(x,y)
@@ -151,7 +156,10 @@ class State():
                     break
                 stop_short = True
 
-            moves.append(move.Move(square.Square(x0,y0),square.Square(x,y)))
+            if self.colorAt(x,y) != c and self.colorAt(x,y) != 'E': 
+                capturepiece = True
+            moves.append(move.Move(square.Square(x0,y0),square.Square(x,y),
+                capturepiece))
             #print ((x0,y0),(x,y))
             #until/do-while for python
             if stop_short:
@@ -271,23 +279,56 @@ class State():
                 stop_short = False
                 capture = True
                 for i in range(0,4):
-                    moves += self.moveScan(x, y, dx, dy, capture, stop_short)
+                    moves += self.moveScan(x,y,dx,dy,capture,stop_short)
                     dx, dy = dy, dx
                     dy *= -1
 
             return moves
+
         elif p in "nN":
             #catch kNights
-            pass
+            #init
+            dx = 1
+            dy = 2
+            stop_short = True
+            capture = True
+            for i in range(0,4):
+                moves += self.moveScan(x,y,dx,dy,capture,stop_short)
+                dx, dy = dy, dx
+                dy *= -1
+            dx = -1
+            dy = 2
+            for i in range(0,4):
+                moves += self.moveScan(x,y,dx,dy,capture,stop_short)
+                dx, dy = dy, dx
+                dy *= -1
+            return moves
+
         elif p in "pP":
             #catch pawns
-            pass
+            direction = 1
+            if p == 'p':
+                direction = -1
+            stop_short = True
+            capture = True
+            m = self.moveScan(x,y,-1,direction,capture,stop_short)
+            if len(m) == 1 and m[0].capture: 
+                moves += m
+
+            m = self.moveScan(x,y,1,direction,capture,stop_short)
+            if len(m) == 1 and m[0].capture: 
+                moves += m
+            capture = False
+            moves += self.moveScan(x,y,0,direction,capture,stop_short)
+            return moves
+
+
+
+
+
+            return moves
 
         
-
-
-
-
 
 
 

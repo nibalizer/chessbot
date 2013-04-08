@@ -274,6 +274,71 @@ if __name__ == "__main__":
             raise NameError("tests no pass: " + " ".join(map(str,moves)))
 
 
+        print ".",
+        #test movelist for knight
+        #black knight
+        moves = boardstate.moveList(3,5)
+        if " ".join(map(str,moves))  !=  "35-23 35-43 35-14":
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: " + " ".join(map(str,moves)))
+
+        print ".",
+        #test movelist for knight
+        #black knight
+        moves = boardstate.moveList(1,0)
+        if " ".join(map(str,moves))  !=  "10-22 10-31":
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: " + " ".join(map(str,moves)))
+
+        print ".",
+        #test movelist for pawn
+        #white pawn
+        moves = boardstate.moveList(3,2)
+        if " ".join(map(str,moves))  !=  "":
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: " + " ".join(map(str,moves)))
+
+        print ".",
+        #test movelist for pawn
+        #black pawn
+        moves = boardstate.moveList(2,4)
+        if " ".join(map(str,moves))  !=  "24-23":
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: " + " ".join(map(str,moves)))
+
+        print ".",
+        #create the newboard with something like this
+        rows = []
+        rows.append(".N.QK")
+        rows.append(".qB.P")
+        rows.append("R..PP")
+        rows.append("..pp.")
+        rows.append("p.p..")
+        rows.append("k.bnr")
+        boardstate.newBoard(rows)
+        #boardstate.display()
+
+        print ".",
+        #test movelist for pawn
+        #white pawn
+        moves = boardstate.moveList(3,2)
+        if " ".join(map(str,moves))  !=  "32-23":
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: " + " ".join(map(str,moves)))
+
+        print ".",
+        #test movelist for pawn
+        #black pawn
+        moves = boardstate.moveList(2,3)
+        if " ".join(map(str,moves))  !=  "23-32 23-22":
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: " + " ".join(map(str,moves)))
 
         print ".",
         print ""
