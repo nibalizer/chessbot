@@ -10,13 +10,13 @@ import math
 class State():
     def __init__(self):
         self.board = self.boardinit()
-        self.moves = 0
+        self.rounds = 0
         self.turn = "W"
 
     def display(self):
         print "Pretty printing board"
         print ""
-        print "  {0}  {1} ".format(self.moves, self.turn)
+        print "  {0}  {1} ".format(self.rounds, self.turn)
         for index in xrange(25,-5,-5):
             for i in range(index,index+5):
                 print self.board[i],
@@ -336,7 +336,16 @@ class State():
             self.turn = "B"
         else: 
             self.turn = "W"
+            self.rounds += 1
 
+    def gameOver(self):
+        if self.rounds >= 40:
+            return True
+        if "k" in self.board:
+            if "K" in self.board:
+                return False
+        return True
+            
 
     def move(self,Move):
         targetx = Move.from_Square.x

@@ -24,6 +24,7 @@ if __name__ == "__main__":
     if not tests:
         boardstate.display()
 
+
     if tests:
         print "Running tests"
         if boardstate.pieceAt(3,2) != '.':
@@ -379,11 +380,81 @@ if __name__ == "__main__":
             boardstate.display()
             raise NameError("tests no pass: " + boardstate.pieceAt(1,2))
         
+        print ".",
+        #create the newboard with something like this
+        rows = []
+        rows.append("RNBQK")
+        rows.append("PPPPP")
+        rows.append(".....")
+        rows.append(".....")
+        rows.append("ppppp")
+        rows.append(".qbnr")
+        boardstate.newBoard(rows)
+
+        print ".",
+        if boardstate.gameOver() != True:
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: game should be over" )
+
+        print ".",
+        #create the newboard with something like this
+        rows = []
+        rows.append("RNBQ.")
+        rows.append("PPPPP")
+        rows.append(".....")
+        rows.append(".....")
+        rows.append("ppppp")
+        rows.append("kqbnr")
+        boardstate.newBoard(rows)
+
+        print ".",
+        if boardstate.gameOver() != True:
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: game should be over" )
+
+        print ".",
+        #create the newboard with something like this
+        rows = []
+        rows.append("RNBQK")
+        rows.append("PPPPP")
+        rows.append(".....")
+        rows.append(".....")
+        rows.append("ppppp")
+        rows.append("kqbnr")
+        boardstate.newBoard(rows)
+        boardstate.rounds = 40
+        boardstate.turn = "W"
+
+        print ".",
+        if boardstate.gameOver() != True:
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: game should be over" )
+
+        print ".",
+        #create the newboard with something like this
+        rows = []
+        rows.append("RNBQK")
+        rows.append("PPPPP")
+        rows.append(".....")
+        rows.append(".....")
+        rows.append("ppppp")
+        rows.append("kqbnr")
+        boardstate.newBoard(rows)
+        boardstate.rounds = 19 
+        boardstate.turn = "W"
+  
+        print ".",
+        if boardstate.gameOver() != False:
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: game should not be over" )
 
 
         print ".",
         print ""
         print "All tests pass, woot!"
         boardstate.display()
-  
-  
+
