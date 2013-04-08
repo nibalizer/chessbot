@@ -31,6 +31,14 @@ class State():
 
         return pieceletter
 
+    def setPieceAt(self,x,y,piece):
+        """
+        set a piece at
+        """
+
+        self.board[(y * 5) + x] = piece
+
+
     def colorAt(self, x, y):
 
         """
@@ -323,12 +331,86 @@ class State():
             return moves
 
 
+    def toggleTurn(self):
+        if self.turn == "W":
+            self.turn = "B"
+        else: 
+            self.turn = "W"
 
 
+    def move(self,Move):
+        targetx = Move.from_Square.x
+        targety = Move.from_Square.y
+        if self.turn == "W":
+            possiblePieces = "KQBNRP"
+        else:
+            possiblePieces = "kqbnrp"
+        if self.pieceAt(targetx,targety) not in possiblePieces:
+            raise NameError("Piece not owned by current player!")
+        nexttargetx = Move.to_Square.x
+        nexttargety = Move.to_Square.y
 
-            return moves
+        piece = self.pieceAt(targetx,targety)
+        self.setPieceAt(nexttargetx,nexttargety,piece)
+        self.setPieceAt(targetx,targety,'.')
+        self.toggleTurn()
 
+
+    def humanMove(self,string_move):
         
 
+        target, nextTarget = string_move.split('-')
+
+        targetx = target[0]
+        targety = int(target[1]) - 1
+
+        nexttargetx = nextTarget[0]
+        nexttargety = int(nextTarget[1]) - 1
 
 
+        if targetx == 'a':
+            targetx = 0
+        elif targetx == 'b':
+            targetx = 1
+        elif targetx == 'c':
+            targetx = 2
+        elif targetx == 'd':
+            targetx = 3
+        elif targetx == 'e':
+            targetx = 4
+
+
+        if nexttargetx == 'a':
+            nexttargetx = 0
+        elif nexttargetx == 'b':
+            nexttargetx = 1
+        elif nexttargetx == 'c':
+            nexttargetx = 2
+        elif nexttargetx == 'd':
+            nexttargetx = 3
+        elif nexttargetx == 'e':
+            nexttargetx = 4
+
+
+        capturepiece = False
+
+        c = self.colorAt(targetx, targety)
+
+        if self.colorAt(nexttargetx,nexttargety) != c and self.colorAt(
+                nexttargetx,nexttargety) != 'E': 
+            capturepiece = True
+        
+        mymove = move.Move(square.Square(targetx,targety),
+                square.Square(nexttargetx,nexttargety), 
+                capturepiece)
+
+        legalmoves = self.moveList(targetx, targety)
+
+        if mymove in legalmoves:
+            self.move(mymove)
+        else:
+            raise NameError("Move is illegal {0}".format(str(mymove)))
+
+
+
+       

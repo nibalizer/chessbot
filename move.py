@@ -9,6 +9,8 @@ class Move():
         str_rep = "{0}{1}-{2}{3}".format(self.from_Square.x, self.from_Square.y,
                 self.to_Square.x, self.to_Square.y)
         return str_rep
+    def __eq__(self,othermove):
+        return (self.to_Square, self.from_Square) == othermove
 
 
 

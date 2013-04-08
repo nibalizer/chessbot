@@ -7,5 +7,7 @@ class Square():
             raise ValueError("x coordinate not in range")
         self.x = x
         self.y = y
+    def __eq__(self,othersquare):
 
+        return (self.x, self.y) == othersquare
 

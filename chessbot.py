@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 #coding: utf-8
 
-import state
 import bot
 import chessutil
+import move
+import square
+import state
+
 import sys
 
 
@@ -339,6 +342,44 @@ if __name__ == "__main__":
             print ""
             boardstate.display()
             raise NameError("tests no pass: " + " ".join(map(str,moves)))
+
+        print ".",
+        #create the newboard with something like this
+        rows = []
+        rows.append("RNBQK")
+        rows.append("PPPPP")
+        rows.append(".....")
+        rows.append(".....")
+        rows.append("ppppp")
+        rows.append("kqbnr")
+        boardstate.newBoard(rows)
+
+        print ".",
+        mymove = move.Move(square.Square(1,1),square.Square(1,2),False)
+        boardstate.move(mymove)
+        if boardstate.pieceAt(1,2) != "P":
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: " + boardstate.pieceAt(1,2))
+        print ".",
+        if boardstate.pieceAt(1,1) != ".":
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: " + boardstate.pieceAt(1,2))
+
+        print ".",
+        boardstate.humanMove("b5-b4")
+        if boardstate.pieceAt(1,3) != "p":
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: " + boardstate.pieceAt(1,2))
+        print ".",
+        if boardstate.pieceAt(1,4) != ".":
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: " + boardstate.pieceAt(1,2))
+        
+
 
         print ".",
         print ""
