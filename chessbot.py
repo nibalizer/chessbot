@@ -18,7 +18,8 @@ except IndexError:
 
 if __name__ == "__main__":
     boardstate = state.State()
-    boardstate.display()
+    if not tests:
+        boardstate.display()
 
     if tests:
         print "Running tests"
@@ -138,7 +139,7 @@ if __name__ == "__main__":
         rows.append("p.p..")
         rows.append("k.bnr")
         boardstate.newBoard(rows)
-        boardstate.display()
+        #boardstate.display()
   
         print ".",
         #these two tests are run again after newboard
@@ -199,15 +200,49 @@ if __name__ == "__main__":
                     raise Error("tests no pass")
   
         print ".",
-        #test movescan for queens and kings
+        #test movelist for queens and kings
+        #black queen
         moves = boardstate.moveList(1,1)
         if " ".join(map(str,moves))  !=  "11-00 11-01 11-02 11-10 11-12 11-13\
  11-14 11-15 11-20 11-21 11-22":
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: " + " ".join(map(str,moves)))
+
+  
+        print ".",
+        #test movelist for queens and kings
+        #black king
+        moves = boardstate.moveList(0,5)
+        if " ".join(map(str,moves))  !=  "05-14 05-15":
+            print ""
+            boardstate.display()
             raise NameError("tests no pass: " + " ".join(map(str,moves)))
   
-  
+        print ".",
+        #test movelist for queens and kings
+        #white queen
+        moves = boardstate.moveList(3,0)
+        if " ".join(map(str,moves))  !=  "30-20 30-31":
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: " + " ".join(map(str,moves)))
+
+        print ".",
+        #test movelist for queens and kings
+        #white king
+        moves = boardstate.moveList(4,0)
+        if " ".join(map(str,moves))  !=  "40-31":
+            print ""
+            boardstate.display()
+            raise NameError("tests no pass: " + " ".join(map(str,moves)))
+
+
+
+
         print ".",
         print ""
         print "All tests pass, woot!"
+        boardstate.display()
   
   
