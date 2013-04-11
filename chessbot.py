@@ -32,10 +32,28 @@ if __name__ == "__main__":
             print "Welcome to MiniChess"
             print "May the odds be ever in your favor"
             print ""
-            boardstate.display()
             color = raw_input("Please pick your color (B/W)")
             if color not in ["B","W"]:
                 raise NameError("Color must be either B or W")
+
+            boardstate.display()
+            if color == "W":
+                humanMove = raw_input(
+                        "please pick a move in algrebraic notation: ")
+                boardstate.humanMove(humanMove)
+
+            while not boardstate.gameOver():
+                boardstate.display()
+                boardstate.move(boardstate.randomMove())
+                boardstate.display()
+                humanMove = raw_input(
+                        "please pick a move in algrebraic notation: ")
+                boardstate.humanMove(humanMove)
+
+
+
+
+
 
 
     if computer:
